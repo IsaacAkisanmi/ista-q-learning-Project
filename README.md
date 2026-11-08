@@ -8,16 +8,14 @@ This repository serves as the template for your course project. Below is an expl
 The repository includes the following files:
 
 ### 1. `algorithms.py`  
-This file will contain the implementations of the AI algorithms/agents used in your project.  
-- Ensure your code is well-documented with comments explaining each algorithm.
+TThis file contains the AI agents used in the project.A Random Agent Requests the legal moves from a game and randomly selects one using choose_move(game).
+
 
 ### 2. `comparisons.py`  
-This file will contain the code for performing comparisons between your selected algorithms.  
-- The file should be able to perform **all comparisons** described in your report when executed.  
-- **Recommended Feature:** Include a setting to run a subset of comparisons for testing purposes.  
+This file will contain the experiments comparing Tabular Q-learning and Approximate Q-learning. But will be completed at the final submission
 
 ### 3. `demo.py`  
-This file will provide a brief demonstration of your project.
+This file runs the agent on both treasure and snake game. it also stops the agent from running when it reaches move limit
 
 #### Submission Requirements:
 - **Progress Report:** Demonstrate *random agents* attempting to solve each problem.  
@@ -27,10 +25,11 @@ This file will provide a brief demonstration of your project.
 Keep the demonstrations concise but meaningful to highlight key behaviors. Some agent types (e.g., random agents) may struggle or fail to solve a problem. Some problems may take a long time to complete (e.g., a full game of chess). In such cases, you should cut off the demonstration after a representative sample of the agent's behavior and problem mechanics has been shown. 
 
 ### 4. `problems.py`  
+This file contains two problem used in the project - treasure hunt and snake. 
+Treasure hunt game - An agent was placed in a 5 x 5 grid that contained treasure, obstacles, harmful spaces and open spaces. The aim of the game was for the agent to reach the treasure while avoiding the obstacles and penalties. A represented Agent, T = Treasure, # = Obstacles and X = Harmful space.
 This file will contain the implementation of the problems you are solving with your AI algorithms.  
-- Ensure that the problems are clearly defined and modular, so the algorithms can be easily tested on each.  
-- For the **progress report**, this file should be fully implemented and require no major edits afterward.
 
+Snake - It is also very similiar to that of the treasure hunt, The aim was to collect food while avoiding the walls and its own body. H represented Head, O = Body, F = Food and . = open space
 ---
 
 ## Instructions for Students

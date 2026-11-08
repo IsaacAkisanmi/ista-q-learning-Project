@@ -19,4 +19,4 @@ class RandomAgent:  #define a class for agent
 
 
 #References:
-#youtube video - https://www.youtube.com/shorts/WMmhbltlDGc - I was able to get an idea of how the game would look like.
+#youtube video - 
