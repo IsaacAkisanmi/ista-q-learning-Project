@@ -2,123 +2,14 @@
 # This file will contain your the code for your problems. 
 # '''
 
-# import numpy as np
-# import cv2
-
-# class Game:
-#     def __init__(self, problem, pZero, pOne,verbose=True):
-#       self.problem = problem      
-#       self.players = [pZero,pOne]   
-#       self.verbose = verbose   
-#       if self.verbose:
-#          self.problem.showState()               
-#     def playGame(self):
-#       pCur=0
-#       while self.problem.isTerminal()==False:           
-#          move = self.players[pCur].getMove(self.problem)           
-#          self.problem.doMove(move)
-#          if self.verbose:
-#             self.problem.showState()
-#             print(f"Move {self.problem.ticks}:")
-#             print(self.problem.state)
-#          pCur = np.abs(pCur-1)
-        
-#       wIndex = self.problem.getWinner()
-#       winner = self.players[wIndex]
-#       if wIndex == -1:
-#          winner = "DRAW"
-#       #display final state
-#       print(f"The Winner is {winner} ({wIndex})!")
-#       if self.verbose:
-#          self.problem.showState(4000)
-#       return wIndex
-              
-# class TicTacToe:
-#    def __init__(self):
-#       self.state = np.zeros((3,3))      
-#       self.ticks=-1      
-#    def getLegalMoves(self, state=None):
-#       if state is None:
-#          state = self.state
-#       moves = []
-#       mark = 1
-#       if np.sum(np.abs(state))%2!=0:
-#          mark = -1       
-#       for i in range(state.shape[0]):
-#          for j in range(state.shape[1]):
-#             if state[i,j]==0:
-#                moves.append((mark,(i,j)))
-#       return moves             
-#    def getSuccessor(self, move, state):
-#       mark = move[0]
-#       loc = move[1]
-#       state[loc] = mark
-#       return state
-#    def doMove(self,move):
-#       self.state = self.getSuccessor(move,self.state)
-#       self.ticks+=1
-#    def isTerminal(self, state=None):
-#       if state is None:
-#          state = self.state         
-#       terminal = False
-#       val = self.evalTerminal(state)      
-#       if val ==0 and np.sum(np.abs(state))==9:
-#          terminal = True
-#       if val!=0:
-#          terminal = True
-#       return terminal
-#    def evalTerminal(self, state=None):
-#       if state is None:
-#          state = self.state
-#       val = 0      
-      
-#       pZeroWins = [np.max(np.sum(state,0))==3,np.max(np.sum(state,1))==3,np.trace(state)==3,np.trace(state[:,::-1])==3]
-#       pOneWins = [np.min(np.sum(state,0))==-3,np.min(np.sum(state,1))==-3,np.trace(state)==-3,np.trace(state[:,::-1])==-3]
-
-#       if np.any(pZeroWins):
-#          val = 1
-#       if np.any(pOneWins):
-#          val = -1
-#       return val
-#    def getWinner(self, state=None):
-#       if state is None:
-#          state = self.state
-#       val = self.evalTerminal(state)
-#       if val==1:
-#          return 0 
-#       elif val==-1:
-#          return 1
-#       else:
-#          return -1
-#    def showState(self, ms = 1000,state=None):
-#       if state is None:
-#          state = self.state  
-
-#       screen = np.zeros((150,150)).astype(np.uint8)         
-#       screen = cv2.line(screen,(0,49),(149,49),255) 
-#       screen = cv2.line(screen,(0,99),(149,99),255)
-#       screen = cv2.line(screen,(49,0),(49,149),255) 
-#       screen = cv2.line(screen,(99,0),(99,149),255)
-
-#       for i in range(state.shape[0]):
-#          for j in range(state.shape[1]):
-#             if state[i,j]==1:
-#                screen = cv2.line(screen,(5 +j*50,5+i*50),(44+j*50,44+i*50),255,2,cv2.LINE_AA) 
-#                screen = cv2.line(screen,(44+j*50,5+i*50),(5 +j*50,44+i*50),255,2,cv2.LINE_AA) 
-#             if state[i,j]==-1:
-#                screen = cv2.circle(screen, (25 +j*50,25+i*50), 20, 255, 2,cv2.LINE_AA) 
-               
-#       cv2.imshow('TicTacToe',screen)
-#       cv2.waitKey(ms)
-
 """
 problems.py
 
-Contains the problem environments used in the project.
 """
+import random
 
 class TreasureHunt:
-    """A grid-based Treasure Hunt game."""
+   
 
     def __init__(
         self,
@@ -160,8 +51,7 @@ class TreasureHunt:
         # Create the first game episode
         self.reset()
 
-    def reset(self):
-        """Return the game to its starting condition."""
+    def reset(self):  #Return the game to its starting condition
 
         self.agent_position = self.start_position
         self.moves = 0
@@ -171,13 +61,13 @@ class TreasureHunt:
 
         return self.get_state()
 
-    def get_state(self):
-        """Return the agent's current position."""
+    def get_state(self):  #Return the agent's current position.
+       
 
         return self.agent_position
 
-    def getLegalMoves(self):
-        """Return the actions currently available to the agent."""
+    def getLegalMoves(self):   #Return the actions currently available to the agent.
+       
 
         movements = {
             "UP": (-1, 0),
@@ -213,13 +103,8 @@ class TreasureHunt:
 
         return legal_moves
 
-    def take_action(self, action):
-        """
-        Apply an action and return:
-
-        current state, reward, and game status
-        """
-
+    def take_action(self, action): #Apply an action and return
+        
         if self.game_over:
             raise RuntimeError(
                 "The game is over. Call reset() to begin a new game."
@@ -275,9 +160,8 @@ class TreasureHunt:
 
         return self.get_state(), reward, self.game_over
 
-    def display(self):
-        """Print the current game board."""
-
+    def display(self):  #Print the current game board.
+        
         print()
 
         for row in range(self.board_size):
@@ -307,12 +191,269 @@ class TreasureHunt:
 
         print()
 
-    def get_result(self):
-        """Return information about the current game."""
-
+    def get_result(self): #Return information about the current game.
+       
         return {
             "position": self.agent_position,
             "moves": self.moves,
+            "total_reward": self.total_reward,
+            "game_over": self.game_over,
+            "end_reason": self.end_reason
+        }
+
+
+#snake game
+
+
+class SnakeGame: # grid-based Snake game implementation
+    
+    def __init__(self, board_size=4, max_moves=30):
+
+        if board_size < 4:
+            raise ValueError("The Snake board must be at least 4 by 4.")
+
+        self.board_size = board_size
+        self.max_moves = max_moves
+
+        self.movements = {
+            "UP": (-1, 0),
+            "DOWN": (1, 0),
+            "LEFT": (0, -1),
+            "RIGHT": (0, 1)
+        }
+
+        self.opposite_directions = {
+            "UP": "DOWN",
+            "DOWN": "UP",
+            "LEFT": "RIGHT",
+            "RIGHT": "LEFT"
+        }
+
+        self.reset()
+
+    def reset(self): #Return the game to its starting point
+        
+        center_row = self.board_size // 2
+        center_column = self.board_size // 2
+
+        # The first position is the head
+        self.snake = [
+            (center_row, center_column),
+            (center_row, center_column - 1)
+        ]
+
+        self.direction = "RIGHT"
+        self.moves = 0
+        self.score = 0
+        self.total_reward = 0
+        self.game_over = False
+        self.end_reason = ""
+
+        self.food_position = self.place_food()
+
+        return self.get_state()
+
+    def get_state(self):
+        
+        return (
+            tuple(self.snake),
+            self.food_position,
+            self.direction
+        )
+
+    def place_food(self):  #Return a random empty position for the food, or None if the board is full.
+        
+
+        empty_positions = []
+
+        for row in range(self.board_size):
+            for column in range(self.board_size):
+
+                position = (row, column)
+
+                if position not in self.snake:
+                    empty_positions.append(position)
+
+        if not empty_positions:
+            return None
+
+        return random.choice(empty_positions)
+
+    def calculate_new_head(self, action): #Return the new head position after applying an action.
+       
+
+        row_change, column_change = self.movements[action]
+
+        current_row, current_column = self.snake[0]
+
+        new_head = (
+            current_row + row_change,
+            current_column + column_change
+        )
+
+        return new_head
+
+    def hits_wall(self, position):  #return True if a position is outside the board.
+
+        row, column = position
+
+        return not (
+            0 <= row < self.board_size
+            and 0 <= column < self.board_size
+        )
+
+    def hits_body(self, position, eating_food=False): #return True if a position collides with the snake.
+       
+        if eating_food:
+            body_positions = self.snake
+        else:
+            # The tail moves away during a normal move
+            body_positions = self.snake[:-1]
+
+        return position in body_positions
+
+    def getLegalMoves(self):  #Return the moves currently available to the snake
+        
+        if self.game_over:
+            return []
+
+        possible_moves = []
+
+        opposite_direction = self.opposite_directions[self.direction]
+
+        for action in self.movements:
+
+            # Prevent the snake from reversing directly into itself
+            if action != opposite_direction:
+                possible_moves.append(action)
+
+        safe_moves = []
+
+        for action in possible_moves:
+
+            new_head = self.calculate_new_head(action)
+
+            eating_food = new_head == self.food_position
+
+            wall_collision = self.hits_wall(new_head)
+
+            body_collision = self.hits_body(
+                new_head,
+                eating_food
+            )
+
+            if not wall_collision and not body_collision:
+                safe_moves.append(action)
+
+        # Exclude fatal moves whenever safe moves are available
+        if safe_moves:
+            return safe_moves
+
+        # If every move is fatal, allow the agent to select one
+        return possible_moves
+
+    def take_action(self, action):
+        """Apply one Snake action."""
+
+        if self.game_over:
+            raise RuntimeError(
+                "The game is over. Call reset() to begin a new game."
+            )
+
+        legal_moves = self.getLegalMoves()
+
+        if action not in legal_moves:
+            raise ValueError(
+                f"{action} is not a legal move."
+            )
+
+        self.direction = action
+        self.moves += 1
+
+        new_head = self.calculate_new_head(action)
+
+        eating_food = new_head == self.food_position
+
+        wall_collision = self.hits_wall(new_head)
+
+        body_collision = self.hits_body(
+            new_head,
+            eating_food
+        )
+
+        if wall_collision:
+            reward = -100
+            self.game_over = True
+            self.end_reason = "The snake hit a wall."
+
+        elif body_collision:
+            reward = -100
+            self.game_over = True
+            self.end_reason = "The snake hit its body."
+
+        else:
+            # Insert the new head at the beginning
+            self.snake.insert(0, new_head)
+
+            if eating_food:
+                reward = 100
+                self.score += 1
+
+                self.food_position = self.place_food()
+
+                if self.food_position is None:
+                    self.game_over = True
+                    self.end_reason = "The snake filled the board."
+
+            else:
+                reward = -1
+
+                # Remove the tail during a normal move
+                self.snake.pop()
+
+            if not self.game_over and self.moves >= self.max_moves:
+                self.game_over = True
+                self.end_reason = "The snake reached the move limit."
+
+        self.total_reward += reward
+
+        return self.get_state(), reward, self.game_over
+
+    def display(self):  #Print the Snake board.
+    
+    
+        print()
+
+        for row in range(self.board_size):
+
+            for column in range(self.board_size):
+
+                position = (row, column)
+
+                if position == self.snake[0]:
+                    symbol = "H"
+
+                elif position in self.snake[1:]:
+                    symbol = "o"
+
+                elif position == self.food_position:
+                    symbol = "F"
+
+                else:
+                    symbol = "."
+
+                print(symbol, end=" ")
+
+            print()
+
+        print()
+
+    def get_result(self): #Return information about the current game.
+        
+
+        return {
+            "moves": self.moves,
+            "score": self.score,
             "total_reward": self.total_reward,
             "game_over": self.game_over,
             "end_reason": self.end_reason

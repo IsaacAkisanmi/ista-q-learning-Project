@@ -17,7 +17,7 @@
 # demoGame = prb.Game(prb.TicTacToe(),alg.RandomAgent(),alg.RandomAgent())
 # demoGame.playGame()
 
-from problems import TreasureHunt
+from problems import TreasureHunt, SnakeGame
 from algorithms import RandomAgent
 
 
@@ -51,5 +51,45 @@ def run_demo():
     print(f"Total reward: {game.total_reward}")
 
 
+
+
+
+def run_snake_demo():
+
+    game = SnakeGame(
+        board_size=4,
+        max_moves=30
+    )
+
+    agent = RandomAgent()
+
+    print("\nSNAKE GAME")
+    print("H = Snake head")
+    print("o = Snake body")
+    print("F = Food")
+    print(". = Open space")
+
+    game.display()
+
+    while not game.game_over:
+
+        action = agent.choose_move(game)
+
+        print(f"Move {game.moves + 1}: {action}")
+
+        state, reward, game_over = game.take_action(action)
+
+        print(f"Reward: {reward}")
+        print(f"Score: {game.score}")
+
+        game.display()
+
+    print("Snake game finished.")
+    print(f"Reason: {game.end_reason}")
+    print(f"Total moves: {game.moves}")
+    print(f"Food collected: {game.score}")
+    print(f"Total reward: {game.total_reward}")
+
 if __name__ == "__main__":
     run_demo()
+    run_snake_demo()
